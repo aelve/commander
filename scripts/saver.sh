@@ -1,5 +1,5 @@
 # append it to the history file
-append_current_line() {
+_append_current_line() {
   if [ -n "$ZSH_VERSION" ]; then
     local cur_line="$BUFFER"
   elif [ -n "$BASH_VERSION" ]; then
@@ -14,8 +14,14 @@ append_current_line() {
 mkdir -p ~/.commander
 touch ~/.commander/history
 
-# declare a new widget
-zle -N lookit
-# bind widget to Ctrl+k 
-bindkey '\ek' lookit
+if [ -n "$ZSH_VERSION" ]; then
+  # declare a new widget
+  zle -N _append_current_line
+  # bind widget to Ctrl+k 
+  bindkey '\ek' _append_current_line
+elif [ -n "$BASH_VERSION" ]; then
+  bind -x "'\ek' : _append_current_line"
+else
+  # assume something else, TODO
+fi
 
