@@ -7,7 +7,6 @@ append_current_line() {
   else
    # asume something else, TODO
   fi
-  local cur_line="$BUFFER" 
   echo "$cur_line" >> ~/.commander/history
 }
 
