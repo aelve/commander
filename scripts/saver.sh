@@ -5,7 +5,7 @@ _save-current-line-bash() {
 }
 
 _init-bash() {
-  bind -x "'\ek' : _save-current-line"
+  bind -x '"\ek" : _save-current-line-bash'
 }
 
 # append it to the history file
@@ -14,7 +14,7 @@ _save-current-line-zsh() {
 }
 
 _init-zsh() {
-  zle -N save-current-line _save-current-line
+  zle -N save-current-line _save-current-line-zsh
   bindkey '\ek' save-current-line
 }
 
@@ -27,6 +27,7 @@ if [ -n "$ZSH_VERSION" ]; then
 elif [ -n "$BASH_VERSION" ]; then
   _init-bash
 else
+  :
   # assume something else, TODO
 fi
 
